@@ -6,7 +6,6 @@
   <title>Sondage - Mon Étude</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -16,7 +15,6 @@
       justify-content: center;
       padding: 20px;
     }
-
     .card {
       background: white;
       border-radius: 16px;
@@ -25,52 +23,22 @@
       width: 100%;
       box-shadow: 0 20px 60px rgba(0,0,0,0.2);
     }
-
-    h1 {
-      color: #333;
-      margin-bottom: 8px;
-      font-size: 1.8rem;
-    }
-
-    .subtitle {
-      color: #888;
-      margin-bottom: 30px;
-      font-size: 0.95rem;
-    }
-
-    .progress-bar {
-      background: #eee;
-      border-radius: 10px;
-      height: 8px;
-      margin-bottom: 30px;
-    }
-
+    h1 { color: #333; margin-bottom: 8px; font-size: 1.8rem; }
+    .subtitle { color: #888; margin-bottom: 30px; font-size: 0.95rem; }
+    .progress-bar { background: #eee; border-radius: 10px; height: 8px; margin-bottom: 30px; }
     .progress-fill {
       background: linear-gradient(90deg, #667eea, #764ba2);
       height: 100%;
       border-radius: 10px;
       transition: width 0.4s ease;
     }
-
-    .question {
-      display: none;
-      animation: fadeIn 0.3s ease;
-    }
-
+    .question { display: none; animation: fadeIn 0.3s ease; }
     .question.active { display: block; }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    .question h2 {
-      color: #444;
-      margin-bottom: 20px;
-      font-size: 1.2rem;
-      line-height: 1.5;
-    }
-
+    .question h2 { color: #444; margin-bottom: 20px; font-size: 1.2rem; line-height: 1.5; }
     .question-num {
       color: #667eea;
       font-size: 0.85rem;
@@ -79,9 +47,7 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
-
-    input[type="email"],
-    input[type="text"] {
+    input[type="email"], input[type="text"] {
       width: 100%;
       padding: 14px 16px;
       border: 2px solid #eee;
@@ -90,14 +56,8 @@
       transition: border-color 0.2s;
       outline: none;
     }
-
-    input[type="email"]:focus,
-    input[type="text"]:focus {
-      border-color: #667eea;
-    }
-
+    input[type="email"]:focus, input[type="text"]:focus { border-color: #667eea; }
     .options { display: flex; flex-direction: column; gap: 12px; }
-
     .option {
       display: flex;
       align-items: center;
@@ -108,18 +68,9 @@
       transition: all 0.2s;
       font-size: 1rem;
     }
-
     .option:hover { border-color: #667eea; background: #f8f7ff; }
-
     .option input[type="radio"] { display: none; }
-
-    .option.selected {
-      border-color: #667eea;
-      background: #f0eeff;
-      color: #667eea;
-      font-weight: 600;
-    }
-
+    .option.selected { border-color: #667eea; background: #f0eeff; color: #667eea; font-weight: 600; }
     .option-icon {
       width: 22px;
       height: 22px;
@@ -132,33 +83,10 @@
       flex-shrink: 0;
       transition: all 0.2s;
     }
-
-    .option.selected .option-icon {
-      background: #667eea;
-      border-color: #667eea;
-    }
-
-    .option.selected .option-icon::after {
-      content: '✓';
-      color: white;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .consent-box {
-      background: #f9f9f9;
-      border: 2px solid #eee;
-      border-radius: 10px;
-      padding: 20px;
-    }
-
-    .consent-label {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      cursor: pointer;
-    }
-
+    .option.selected .option-icon { background: #667eea; border-color: #667eea; }
+    .option.selected .option-icon::after { content: '✓'; color: white; font-size: 12px; font-weight: bold; }
+    .consent-box { background: #f9f9f9; border: 2px solid #eee; border-radius: 10px; padding: 20px; }
+    .consent-label { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
     .consent-label input[type="checkbox"] {
       width: 20px;
       height: 20px;
@@ -167,15 +95,8 @@
       cursor: pointer;
       flex-shrink: 0;
     }
-
-    .consent-text {
-      font-size: 0.9rem;
-      color: #555;
-      line-height: 1.5;
-    }
-
+    .consent-text { font-size: 0.9rem; color: #555; line-height: 1.5; }
     .consent-text strong { color: #333; }
-
     .btn {
       margin-top: 25px;
       width: 100%;
@@ -189,11 +110,9 @@
       cursor: pointer;
       transition: opacity 0.2s, transform 0.1s;
     }
-
     .btn:hover { opacity: 0.92; transform: translateY(-1px); }
     .btn:active { transform: translateY(0); }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
     .btn-back {
       margin-top: 10px;
       width: 100%;
@@ -206,21 +125,9 @@
       cursor: pointer;
       transition: all 0.2s;
     }
-
     .btn-back:hover { border-color: #ccc; color: #555; }
-
-    .error-msg {
-      color: #e74c3c;
-      font-size: 0.85rem;
-      margin-top: 8px;
-      display: none;
-    }
-
-    .loading {
-      text-align: center;
-      padding: 20px;
-      color: #667eea;
-    }
+    .error-msg { color: #e74c3c; font-size: 0.85rem; margin-top: 8px; display: none; }
+    .loading { text-align: center; padding: 20px; color: #667eea; }
   </style>
 </head>
 <body>
@@ -235,7 +142,6 @@
 
   <form id="sondageForm">
 
-    <!-- Question 1 : Email -->
     <div class="question active" id="q1">
       <div class="question-num">Question 1 / 5</div>
       <h2>📧 Quelle est votre adresse email ?</h2>
@@ -244,23 +150,22 @@
       <button type="button" class="btn" onclick="nextQuestion(1)">Continuer →</button>
     </div>
 
-    <!-- Question 2 : Volume de prospection -->
     <div class="question" id="q2">
       <div class="question-num">Question 2 / 5</div>
       <h2>📬 Combien d'emails de prospection recevez-vous par semaine ?</h2>
       <div class="options">
-        <label class="option" onclick="selectOption(this, 'prospection', 'a', 1)">
-          <input type="radio" name="prospection" value="a">
+        <label class="option" onclick="selectOption(this, 'question1', 'a', 1)">
+          <input type="radio" name="question1" value="a">
           <div class="option-icon"></div>
           Moins de 10 emails
         </label>
-        <label class="option" onclick="selectOption(this, 'prospection', 'b', 2)">
-          <input type="radio" name="prospection" value="b">
+        <label class="option" onclick="selectOption(this, 'question1', 'b', 2)">
+          <input type="radio" name="question1" value="b">
           <div class="option-icon"></div>
           Entre 10 et 50 emails
         </label>
-        <label class="option" onclick="selectOption(this, 'prospection', 'c', 3)">
-          <input type="radio" name="prospection" value="c">
+        <label class="option" onclick="selectOption(this, 'question1', 'c', 3)">
+          <input type="radio" name="question1" value="c">
           <div class="option-icon"></div>
           Plus de 50 emails
         </label>
@@ -270,28 +175,27 @@
       <button type="button" class="btn-back" onclick="prevQuestion(2)">← Retour</button>
     </div>
 
-    <!-- Question 3 -->
     <div class="question" id="q3">
       <div class="question-num">Question 3 / 5</div>
       <h2>🛒 Avez-vous déjà acheté suite à un email de prospection ?</h2>
       <div class="options">
-        <label class="option" onclick="selectOption(this, 'achat', 'jamais', 1)">
-          <input type="radio" name="achat" value="jamais">
+        <label class="option" onclick="selectOption(this, 'question2', 'jamais', 1)">
+          <input type="radio" name="question2" value="jamais">
           <div class="option-icon"></div>
           Jamais
         </label>
-        <label class="option" onclick="selectOption(this, 'achat', 'rarement', 2)">
-          <input type="radio" name="achat" value="rarement">
+        <label class="option" onclick="selectOption(this, 'question2', 'rarement', 2)">
+          <input type="radio" name="question2" value="rarement">
           <div class="option-icon"></div>
           Rarement (1-2 fois)
         </label>
-        <label class="option" onclick="selectOption(this, 'achat', 'parfois', 3)">
-          <input type="radio" name="achat" value="parfois">
+        <label class="option" onclick="selectOption(this, 'question2', 'parfois', 3)">
+          <input type="radio" name="question2" value="parfois">
           <div class="option-icon"></div>
           Parfois (plusieurs fois)
         </label>
-        <label class="option" onclick="selectOption(this, 'achat', 'souvent', 4)">
-          <input type="radio" name="achat" value="souvent">
+        <label class="option" onclick="selectOption(this, 'question2', 'souvent', 4)">
+          <input type="radio" name="question2" value="souvent">
           <div class="option-icon"></div>
           Souvent
         </label>
@@ -301,28 +205,27 @@
       <button type="button" class="btn-back" onclick="prevQuestion(3)">← Retour</button>
     </div>
 
-    <!-- Question 4 -->
     <div class="question" id="q4">
       <div class="question-num">Question 4 / 5</div>
       <h2>🔍 Comment qualifieriez-vous votre rapport aux offres commerciales ?</h2>
       <div class="options">
-        <label class="option" onclick="selectOption(this, 'rapport', 'curieux', 3)">
-          <input type="radio" name="rapport" value="curieux">
+        <label class="option" onclick="selectOption(this, 'question3', 'curieux', 3)">
+          <input type="radio" name="question3" value="curieux">
           <div class="option-icon"></div>
           Je suis curieux, j'aime découvrir
         </label>
-        <label class="option" onclick="selectOption(this, 'rapport', 'selectif', 2)">
-          <input type="radio" name="rapport" value="selectif">
+        <label class="option" onclick="selectOption(this, 'question3', 'selectif', 2)">
+          <input type="radio" name="question3" value="selectif">
           <div class="option-icon"></div>
           Je suis sélectif, j'ouvre peu
         </label>
-        <label class="option" onclick="selectOption(this, 'rapport', 'desabonne', 1)">
-          <input type="radio" name="rapport" value="desabonne">
+        <label class="option" onclick="selectOption(this, 'question3', 'desabonne', 1)">
+          <input type="radio" name="question3" value="desabonne">
           <div class="option-icon"></div>
           Je me désabonne systématiquement
         </label>
-        <label class="option" onclick="selectOption(this, 'rapport', 'indifferent', 2)">
-          <input type="radio" name="rapport" value="indifferent">
+        <label class="option" onclick="selectOption(this, 'question3', 'indifferent', 2)">
+          <input type="radio" name="question3" value="indifferent">
           <div class="option-icon"></div>
           Indifférent, ça ne me dérange pas
         </label>
@@ -332,23 +235,22 @@
       <button type="button" class="btn-back" onclick="prevQuestion(4)">← Retour</button>
     </div>
 
-    <!-- Question 5 -->
     <div class="question" id="q5">
       <div class="question-num">Question 5 / 5</div>
       <h2>💡 Êtes-vous intéressé par des offres personnalisées selon vos besoins ?</h2>
       <div class="options">
-        <label class="option" onclick="selectOption(this, 'interet', 'oui', 4)">
-          <input type="radio" name="interet" value="oui">
+        <label class="option" onclick="selectOption(this, 'question4', 'oui', 4)">
+          <input type="radio" name="question4" value="oui">
           <div class="option-icon"></div>
           Oui, absolument
         </label>
-        <label class="option" onclick="selectOption(this, 'interet', 'peut_etre', 3)">
-          <input type="radio" name="interet" value="peut_etre">
+        <label class="option" onclick="selectOption(this, 'question4', 'peut_etre', 3)">
+          <input type="radio" name="question4" value="peut_etre">
           <div class="option-icon"></div>
           Peut-être, selon le contexte
         </label>
-        <label class="option" onclick="selectOption(this, 'interet', 'non', 1)">
-          <input type="radio" name="interet" value="non">
+        <label class="option" onclick="selectOption(this, 'question4', 'non', 1)">
+          <input type="radio" name="question4" value="non">
           <div class="option-icon"></div>
           Non, pas vraiment
         </label>
@@ -358,7 +260,6 @@
       <button type="button" class="btn-back" onclick="prevQuestion(5)">← Retour</button>
     </div>
 
-    <!-- Consentement -->
     <div class="question" id="q6">
       <div class="question-num">Dernière étape ✨</div>
       <h2>🔒 Consentement & confidentialité</h2>
@@ -390,25 +291,20 @@
 </div>
 
 <script>
-  // =============================================
-  // CONFIGURATION — Mets ton URL Apps Script ici
-  // =============================================
   const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzGuDmp400bvXHB4FYe4ZtaJXuw1fXt_QtoGKrmEyC23b9T9xFlSQ128TndR5PjJs4zRQ/exec";
-  // =============================================
 
   let currentQuestion = 1;
   const totalQuestions = 5;
-  
-  // Stockage des réponses et scores
+
   const answers = {
     email: '',
-    prospection: '',
-    achat: '',
-    rapport: '',
-    interet: '',
+    question1: '',
+    question2: '',
+    question3: '',
+    question4: '',
     consentement: false
   };
-  
+
   let totalScore = 0;
   const scores = {};
 
@@ -427,23 +323,15 @@
   }
 
   function selectOption(element, field, value, score) {
-    // Désélectionner toutes les options du même groupe
     const siblings = element.parentElement.querySelectorAll('.option');
     siblings.forEach(s => s.classList.remove('selected'));
-    
-    // Sélectionner celle cliquée
     element.classList.add('selected');
-    
-    // Cocher le radio
     element.querySelector('input[type="radio"]').checked = true;
-    
-    // Stocker
     answers[field] = value;
     scores[field] = score;
   }
 
   function nextQuestion(from) {
-    // Validation
     if (from === 1) {
       const email = document.getElementById('email').value;
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -454,24 +342,13 @@
       document.getElementById('err1').style.display = 'none';
       answers.email = email;
     }
+    if (from === 2 && !answers.question1) { document.getElementById('err2').style.display = 'block'; return; }
+    if (from === 3 && !answers.question2) { document.getElementById('err3').style.display = 'block'; return; }
+    if (from === 4 && !answers.question3) { document.getElementById('err4').style.display = 'block'; return; }
+    if (from === 5 && !answers.question4) { document.getElementById('err5').style.display = 'block'; return; }
 
-    if (from === 2 && !answers.prospection) {
-      document.getElementById('err2').style.display = 'block'; return;
-    }
-    if (from === 3 && !answers.achat) {
-      document.getElementById('err3').style.display = 'block'; return;
-    }
-    if (from === 4 && !answers.rapport) {
-      document.getElementById('err4').style.display = 'block'; return;
-    }
-    if (from === 5 && !answers.interet) {
-      document.getElementById('err5').style.display = 'block'; return;
-    }
-
-    // Masquer erreur
     const err = document.getElementById('err' + from);
     if (err) err.style.display = 'none';
-
     showQuestion(from + 1);
   }
 
@@ -487,15 +364,12 @@
   async function submitForm() {
     const btn = document.getElementById('submitBtn');
     btn.disabled = true;
-
     answers.consentement = document.getElementById('consentement').checked;
     const score = calculateScore();
 
-    // Afficher loading
     document.getElementById('sondageForm').style.display = 'none';
     document.getElementById('loadingMsg').style.display = 'block';
 
-    // Envoyer vers Google Sheets
     try {
       await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
@@ -504,16 +378,14 @@
         body: JSON.stringify({ ...answers, score })
       });
     } catch (e) {
-      console.log('Envoi échoué (normal en no-cors)', e);
+      console.log('Envoi échoué', e);
     }
 
-    // Rediriger vers page résultat avec le score
     setTimeout(() => {
       window.location.href = `resultat.html?score=${score}&consent=${answers.consentement}`;
     }, 1000);
   }
 
-  // Init
   updateProgress();
 </script>
 

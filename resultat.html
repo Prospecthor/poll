@@ -150,12 +150,10 @@
 </div>
 
 <script>
-  // Récupérer les paramètres URL
   const params = new URLSearchParams(window.location.search);
   const score = parseInt(params.get('score')) || 0;
   const consent = params.get('consent') === 'true';
 
-  // Définir les profils selon le score
   const profiles = [
     {
       min: 0, max: 6,
@@ -204,10 +202,8 @@
     }
   ];
 
-  // Trouver le bon profil
   const profile = profiles.find(p => score >= p.min && score <= p.max) || profiles[1];
 
-  // Appliquer
   document.getElementById('resultEmoji').textContent = profile.emoji;
   document.getElementById('scoreNumber').textContent = score;
   document.getElementById('scoreCircle').style.background = profile.circleColor;
@@ -220,7 +216,6 @@
   document.getElementById('profileTitle').textContent = profile.title;
   document.getElementById('profileDesc').textContent = profile.desc;
 
-  // Tips
   const tipsList = document.getElementById('tipsList');
   profile.tips.forEach(tip => {
     const div = document.createElement('div');
@@ -229,12 +224,10 @@
     tipsList.appendChild(div);
   });
 
-  // Consentement
   if (consent) {
     document.getElementById('consentNotice').style.display = 'block';
   }
 
-  // Animation du score
   let current = 0;
   const target = score;
   const interval = setInterval(() => {
