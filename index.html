@@ -125,275 +125,196 @@
       cursor: pointer;
       transition: all 0.2s;
     }
-    .btn-back:hover { border-color: #ccc; color: #555; }
-    .error-msg { color: #e74c3c; font-size: 0.85rem; margin-top: 8px; display: none; }
-    .loading { text-align: center; padding: 20px; color: #667eea; }
+    .btn-back:hover { border-color: #667eea; color: #667eea; }
   </style>
 </head>
 <body>
 
 <div class="card">
-  <h1>📊 Notre Sondage</h1>
-  <p class="subtitle">5 questions · 2 minutes · Résultat immédiat</p>
+  <h1>📊 Sondage</h1>
+  <p class="subtitle">Répondez à nos questions — cela prend moins d'une minute.</p>
 
   <div class="progress-bar">
     <div class="progress-fill" id="progressFill" style="width: 0%"></div>
   </div>
 
-  <form id="sondageForm">
+  <div class="question active" id="q0">
+    <div class="question-num">Question 1 / 5</div>
+    <h2>Quelle est votre adresse email ?</h2>
+    <input type="email" id="emailInput" placeholder="votre@email.com">
+    <button class="btn" onclick="nextFromEmail()">Suivant →</button>
+  </div>
 
-    <div class="question active" id="q1">
-      <div class="question-num">Question 1 / 5</div>
-      <h2>📧 Quelle est votre adresse email ?</h2>
-      <input type="email" id="email" placeholder="votre@email.com" required>
-      <div class="error-msg" id="err1">Merci d'entrer un email valide.</div>
-      <button type="button" class="btn" onclick="nextQuestion(1)">Continuer →</button>
+  <div class="question" id="q1">
+    <div class="question-num">Question 2 / 5</div>
+    <h2>À quelle fréquence recevez-vous des emails de prospection commerciale ?</h2>
+    <div class="options">
+      <label class="option" onclick="selectOption(this, 'question1', 'a', 1)">
+        <div class="option-icon"></div>
+        <span>Jamais ou très rarement</span>
+      </label>
+      <label class="option" onclick="selectOption(this, 'question1', 'b', 2)">
+        <div class="option-icon"></div>
+        <span>Quelques fois par semaine</span>
+      </label>
+      <label class="option" onclick="selectOption(this, 'question1', 'c', 3)">
+        <div class="option-icon"></div>
+        <span>Tous les jours</span>
+      </label>
     </div>
+    <button class="btn" id="btn1" onclick="nextQuestion(2)" disabled>Suivant →</button>
+    <button class="btn-back" onclick="prevQuestion(0)">← Retour</button>
+  </div>
 
-    <div class="question" id="q2">
-      <div class="question-num">Question 2 / 5</div>
-      <h2>📬 Combien d'emails de prospection recevez-vous par semaine ?</h2>
-      <div class="options">
-        <label class="option" onclick="selectOption(this, 'question1', 'a', 1)">
-          <input type="radio" name="question1" value="a">
-          <div class="option-icon"></div>
-          Moins de 10 emails
-        </label>
-        <label class="option" onclick="selectOption(this, 'question1', 'b', 2)">
-          <input type="radio" name="question1" value="b">
-          <div class="option-icon"></div>
-          Entre 10 et 50 emails
-        </label>
-        <label class="option" onclick="selectOption(this, 'question1', 'c', 3)">
-          <input type="radio" name="question1" value="c">
-          <div class="option-icon"></div>
-          Plus de 50 emails
-        </label>
-      </div>
-      <div class="error-msg" id="err2">Merci de choisir une réponse.</div>
-      <button type="button" class="btn" onclick="nextQuestion(2)">Continuer →</button>
-      <button type="button" class="btn-back" onclick="prevQuestion(2)">← Retour</button>
+  <div class="question" id="q2">
+    <div class="question-num">Question 3 / 5</div>
+    <h2>Avez-vous déjà acheté un produit ou service suite à un email commercial ?</h2>
+    <div class="options">
+      <label class="option" onclick="selectOption(this, 'question2', 'a', 1)">
+        <div class="option-icon"></div>
+        <span>Jamais</span>
+      </label>
+      <label class="option" onclick="selectOption(this, 'question2', 'b', 2)">
+        <div class="option-icon"></div>
+        <span>Rarement</span>
+      </label>
+      <label class="option" onclick="selectOption(this, 'question2', 'c', 3)">
+        <div class="option-icon"></div>
+        <span>Parfois</span>
+      </label>
+      <label class="option" onclick="selectOption(this, 'question2', 'd', 4)">
+        <div class="option-icon"></div>
+        <span>Souvent</span>
+      </label>
     </div>
+    <button class="btn" id="btn2" onclick="nextQuestion(3)" disabled>Suivant →</button>
+    <button class="btn-back" onclick="prevQuestion(1)">← Retour</button>
+  </div>
 
-    <div class="question" id="q3">
-      <div class="question-num">Question 3 / 5</div>
-      <h2>🛒 Avez-vous déjà acheté suite à un email de prospection ?</h2>
-      <div class="options">
-        <label class="option" onclick="selectOption(this, 'question2', 'jamais', 1)">
-          <input type="radio" name="question2" value="jamais">
-          <div class="option-icon"></div>
-          Jamais
-        </label>
-        <label class="option" onclick="selectOption(this, 'question2', 'rarement', 2)">
-          <input type="radio" name="question2" value="rarement">
-          <div class="option-icon"></div>
-          Rarement (1-2 fois)
-        </label>
-        <label class="option" onclick="selectOption(this, 'question2', 'parfois', 3)">
-          <input type="radio" name="question2" value="parfois">
-          <div class="option-icon"></div>
-          Parfois (plusieurs fois)
-        </label>
-        <label class="option" onclick="selectOption(this, 'question2', 'souvent', 4)">
-          <input type="radio" name="question2" value="souvent">
-          <div class="option-icon"></div>
-          Souvent
-        </label>
-      </div>
-      <div class="error-msg" id="err3">Merci de choisir une réponse.</div>
-      <button type="button" class="btn" onclick="nextQuestion(3)">Continuer →</button>
-      <button type="button" class="btn-back" onclick="prevQuestion(3)">← Retour</button>
+  <div class="question" id="q3">
+    <div class="question-num">Question 4 / 5</div>
+    <h2>Quel est votre rapport avec les emails de prospection ?</h2>
+    <div class="options">
+      <label class="option" onclick="selectOption(this, 'question3', 'a', 3)">
+        <div class="option-icon"></div>
+        <span>Je suis curieux, j'ouvre souvent</span>
+      </label>
+      <label class="option" onclick="selectOption(this, 'question3', 'b', 2)">
+        <div class="option-icon"></div>
+        <span>Je suis sélectif</span>
+      </label>
+      <label class="option" onclick="selectOption(this, 'question3', 'c', 1)">
+        <div class="option-icon"></div>
+        <span>Je me désabonne systématiquement</span>
+      </label>
+      <label class="option" onclick="selectOption(this, 'question3', 'd', 2)">
+        <div class="option-icon"></div>
+        <span>Ça m'est indifférent</span>
+      </label>
     </div>
+    <button class="btn" id="btn3" onclick="nextQuestion(4)" disabled>Suivant →</button>
+    <button class="btn-back" onclick="prevQuestion(2)">← Retour</button>
+  </div>
 
-    <div class="question" id="q4">
-      <div class="question-num">Question 4 / 5</div>
-      <h2>🔍 Comment qualifieriez-vous votre rapport aux offres commerciales ?</h2>
-      <div class="options">
-        <label class="option" onclick="selectOption(this, 'question3', 'curieux', 3)">
-          <input type="radio" name="question3" value="curieux">
-          <div class="option-icon"></div>
-          Je suis curieux, j'aime découvrir
-        </label>
-        <label class="option" onclick="selectOption(this, 'question3', 'selectif', 2)">
-          <input type="radio" name="question3" value="selectif">
-          <div class="option-icon"></div>
-          Je suis sélectif, j'ouvre peu
-        </label>
-        <label class="option" onclick="selectOption(this, 'question3', 'desabonne', 1)">
-          <input type="radio" name="question3" value="desabonne">
-          <div class="option-icon"></div>
-          Je me désabonne systématiquement
-        </label>
-        <label class="option" onclick="selectOption(this, 'question3', 'indifferent', 2)">
-          <input type="radio" name="question3" value="indifferent">
-          <div class="option-icon"></div>
-          Indifférent, ça ne me dérange pas
-        </label>
-      </div>
-      <div class="error-msg" id="err4">Merci de choisir une réponse.</div>
-      <button type="button" class="btn" onclick="nextQuestion(4)">Continuer →</button>
-      <button type="button" class="btn-back" onclick="prevQuestion(4)">← Retour</button>
+  <div class="question" id="q4">
+    <div class="question-num">Question 5 / 5</div>
+    <h2>Seriez-vous intéressé par des offres personnalisées basées sur vos centres d'intérêt ?</h2>
+    <div class="options">
+      <label class="option" onclick="selectOption(this, 'question4', 'a', 4)">
+        <div class="option-icon"></div>
+        <span>Oui, totalement</span>
+      </label>
+      <label class="option" onclick="selectOption(this, 'question4', 'b', 3)">
+        <div class="option-icon"></div>
+        <span>Peut-être, si c'est pertinent</span>
+      </label>
+      <label class="option" onclick="selectOption(this, 'question4', 'c', 1)">
+        <div class="option-icon"></div>
+        <span>Non, pas du tout</span>
+      </label>
     </div>
+    <button class="btn" id="btn4" onclick="nextQuestion(5)" disabled>Suivant →</button>
+    <button class="btn-back" onclick="prevQuestion(3)">← Retour</button>
+  </div>
 
-    <div class="question" id="q5">
-      <div class="question-num">Question 5 / 5</div>
-      <h2>💡 Êtes-vous intéressé par des offres personnalisées selon vos besoins ?</h2>
-      <div class="options">
-        <label class="option" onclick="selectOption(this, 'question4', 'oui', 4)">
-          <input type="radio" name="question4" value="oui">
-          <div class="option-icon"></div>
-          Oui, absolument
-        </label>
-        <label class="option" onclick="selectOption(this, 'question4', 'peut_etre', 3)">
-          <input type="radio" name="question4" value="peut_etre">
-          <div class="option-icon"></div>
-          Peut-être, selon le contexte
-        </label>
-        <label class="option" onclick="selectOption(this, 'question4', 'non', 1)">
-          <input type="radio" name="question4" value="non">
-          <div class="option-icon"></div>
-          Non, pas vraiment
-        </label>
-      </div>
-      <div class="error-msg" id="err5">Merci de choisir une réponse.</div>
-      <button type="button" class="btn" onclick="nextQuestion(5)">Continuer →</button>
-      <button type="button" class="btn-back" onclick="prevQuestion(5)">← Retour</button>
+  <div class="question" id="q5">
+    <div class="question-num">Dernière étape</div>
+    <h2>Consentement</h2>
+    <div class="consent-box">
+      <label class="consent-label">
+        <input type="checkbox" id="consentCheck" onchange="toggleConsent()">
+        <span class="consent-text">
+          <strong>J'accepte</strong> de recevoir des communications commerciales par email.
+          Je comprends que je peux me désinscrire à tout moment. Mes données seront traitées
+          conformément à la politique de confidentialité.
+        </span>
+      </label>
     </div>
-
-    <div class="question" id="q6">
-      <div class="question-num">Dernière étape ✨</div>
-      <h2>🔒 Consentement & confidentialité</h2>
-      <div class="consent-box">
-        <label class="consent-label">
-          <input type="checkbox" id="consentement">
-          <span class="consent-text">
-            <strong>J'accepte</strong> que mon adresse email soit utilisée à des fins publicitaires
-            et commerciales. Je comprends que je peux me désabonner à tout moment.
-            Conformément au <strong>RGPD</strong>, vos données sont traitées avec votre consentement explicite.
-          </span>
-        </label>
-      </div>
-      <p style="font-size:0.8rem; color:#aaa; margin-top:10px;">
-        * La case n'est pas obligatoire pour envoyer le sondage.
-      </p>
-      <div class="error-msg" id="err6"></div>
-      <button type="button" class="btn" onclick="submitForm()" id="submitBtn">
-        🚀 Voir mon résultat
-      </button>
-      <button type="button" class="btn-back" onclick="prevQuestion(6)">← Retour</button>
-    </div>
-
-  </form>
-
-  <div class="loading" id="loadingMsg" style="display:none">
-    ⏳ Envoi en cours...
+    <button class="btn" onclick="submitForm()">Voir mes résultats 🎉</button>
+    <button class="btn-back" onclick="prevQuestion(4)">← Retour</button>
   </div>
 </div>
 
 <script>
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzGuDmp400bvXHB4FYe4ZtaJXuw1fXt_QtoGKrmEyC23b9T9xFlSQ128TndR5PjJs4zRQ/exec";
-
-  let currentQuestion = 1;
-  const totalQuestions = 5;
-
-  const answers = {
-    email: '',
-    question1: '',
-    question2: '',
-    question3: '',
-    question4: '',
-    consentement: false
-  };
-
-  let totalScore = 0;
-  const scores = {};
+  const answers = { email: '', question1: '', question2: '', question3: '', question4: '', consentement: false };
+  const scores = { question1: 0, question2: 0, question3: 0, question4: 0 };
+  let currentStep = 0;
+  const totalSteps = 6;
 
   function updateProgress() {
-    const step = currentQuestion <= totalQuestions ? currentQuestion - 1 : totalQuestions;
-    const percent = (step / totalQuestions) * 100;
-    document.getElementById('progressFill').style.width = percent + '%';
+    document.getElementById('progressFill').style.width = ((currentStep + 1) / totalSteps * 100) + '%';
   }
 
-  function showQuestion(num) {
+  function showQuestion(index) {
     document.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
-    document.getElementById('q' + num).classList.add('active');
-    currentQuestion = num;
+    document.getElementById('q' + index).classList.add('active');
+    currentStep = index;
     updateProgress();
-    window.scrollTo(0, 0);
   }
 
-  function selectOption(element, field, value, score) {
-    const siblings = element.parentElement.querySelectorAll('.option');
-    siblings.forEach(s => s.classList.remove('selected'));
-    element.classList.add('selected');
-    element.querySelector('input[type="radio"]').checked = true;
-    answers[field] = value;
-    scores[field] = score;
+  function nextFromEmail() {
+    const email = document.getElementById('emailInput').value.trim();
+    if (!email || !email.includes('@')) { alert('Veuillez entrer un email valide.'); return; }
+    answers.email = email;
+    showQuestion(1);
   }
 
-  function nextQuestion(from) {
-    if (from === 1) {
-      const email = document.getElementById('email').value;
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        document.getElementById('err1').style.display = 'block';
-        return;
-      }
-      document.getElementById('err1').style.display = 'none';
-      answers.email = email;
-    }
-    if (from === 2 && !answers.question1) { document.getElementById('err2').style.display = 'block'; return; }
-    if (from === 3 && !answers.question2) { document.getElementById('err3').style.display = 'block'; return; }
-    if (from === 4 && !answers.question3) { document.getElementById('err4').style.display = 'block'; return; }
-    if (from === 5 && !answers.question4) { document.getElementById('err5').style.display = 'block'; return; }
-
-    const err = document.getElementById('err' + from);
-    if (err) err.style.display = 'none';
-    showQuestion(from + 1);
+  function selectOption(el, key, value, score) {
+    el.parentElement.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    answers[key] = value;
+    scores[key] = score;
+    const qIndex = Object.keys(scores).indexOf(key) + 1;
+    document.getElementById('btn' + qIndex).disabled = false;
   }
 
-  function prevQuestion(from) {
-    if (from > 1) showQuestion(from - 1);
+  function nextQuestion(index) { showQuestion(index); }
+  function prevQuestion(index) { showQuestion(index); }
+
+  function toggleConsent() {
+    answers.consentement = document.getElementById('consentCheck').checked;
   }
 
-  function calculateScore() {
-    totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
-    return totalScore;
+  function submitForm() {
+    const totalScore = scores.question1 + scores.question2 + scores.question3 + scores.question4;
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzGuDmp400bvXHB4FYe4ZtaJXuw1fXt_QtoGKrmEyC23b9T9xFlSQ128TndR5PjJs4zRQ/exec';
+    const params = new URLSearchParams({
+      email: answers.email,
+      question1: answers.question1,
+      question2: answers.question2,
+      question3: answers.question3,
+      question4: answers.question4,
+      consentement: answers.consentement,
+      score: totalScore
+    });
+    fetch(APPS_SCRIPT_URL + '?' + params.toString())
+      .then(() => {
+        window.location.href = 'resultat.html?score=' + totalScore + '&consent=' + answers.consentement;
+      })
+      .catch(() => {
+        window.location.href = 'resultat.html?score=' + totalScore + '&consent=' + answers.consentement;
+      });
   }
-
-  async function submitForm() {
-    const btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    answers.consentement = document.getElementById('consentement').checked;
-    const score = calculateScore();
-
-    document.getElementById('sondageForm').style.display = 'none';
-    document.getElementById('loadingMsg').style.display = 'block';
-
-    try {
-        const params = new URLSearchParams({
-        email: answers.email,
-        question1: answers.question1,
-        question2: answers.question2,
-        question3: answers.question3,
-        question4: answers.question4,
-        consentement: answers.consentement,
-        score: score
-        });
-        
-        await fetch(APPS_SCRIPT_URL + '?' + params.toString(), {
-        method: 'GET',
-        mode: 'no-cors'
-        });
-    } catch (e) {
-        console.log('Envoi échoué', e);
-    }
-
-    setTimeout(() => {
-        window.location.href = 'resultat.html?score=' + score + '&consent=' + answers.consentement;
-    }, 1000);
-    }
-
 
   updateProgress();
 </script>
