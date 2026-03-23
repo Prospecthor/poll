@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Votre résultat</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 50px 40px;
+      max-width: 550px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+
+    .emoji { font-size: 4rem; margin-bottom: 20px; }
+
+    .score-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      margin: 20px auto 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: white;
+      position: relative;
+    }
+
+    .score-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+
+    .profile-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 12px;
+    }
+
+    .profile-desc {
+      color: #666;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 30px;
+    }
+
+    .tips {
+      background: #f9f9f9;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: left;
+      margin-bottom: 25px;
+    }
+
+    .tips h3 {
+      color: #444;
+      margin-bottom: 12px;
+      font-size: 1rem;
+    }
+
+    .tip-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .consent-notice {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 0.85rem;
+      color: #856404;
+      margin-bottom: 20px;
+    }
+
+    .btn-retry {
+      padding: 14px 30px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="emoji" id="resultEmoji">🎯</div>
+  <h1 style="color:#444; margin-bottom:8px;">Votre profil</h1>
+  <p style="color:#aaa; font-size:0.9rem; margin-bottom:10px;">Basé sur vos réponses</p>
+
+  <div class="score-circle" id="scoreCircle">
+    <span id="scoreNumber">0</span>
+    <span class="score-label">/ 15 pts</span>
+  </div>
+
+  <div class="badge" id="scoreBadge">—</div>
+  <h2 class="profile-title" id="profileTitle">Analyse en cours...</h2>
+  <p class="profile-desc" id="profileDesc"></p>
+
+  <div class="tips" id="tipsBox">
+    <h3>💡 Ce que cela signifie :</h3>
+    <div id="tipsList"></div>
+  </div>
+
+  <div class="consent-notice" id="consentNotice" style="display:none">
+    ✅ Merci ! Vous avez accepté de recevoir nos communications.
+    Nous veillerons à vous envoyer du contenu pertinent uniquement.
+  </div>
+
+  <a href="index.html" class="btn-retry">🔄 Refaire le sondage</a>
+</div>
+
+<script>
+  // Récupérer les paramètres URL
+  const params = new URLSearchParams(window.location.search);
+  const score = parseInt(params.get('score')) || 0;
+  const consent = params.get('consent') === 'true';
+
+  // Définir les profils selon le score
+  const profiles = [
+    {
+      min: 0, max: 6,
+      emoji: '🛡️',
+      title: 'Le Protégé',
+      badge: '🔒 Profil Prudent',
+      badgeColor: '#e8f5e9',
+      badgeText: '#2e7d32',
+      circleColor: 'linear-gradient(135deg, #56ab2f, #a8e063)',
+      desc: 'Vous êtes très peu exposé à la prospection commerciale et vous y répondez rarement. Vous êtes sélectif et protégez votre boîte mail efficacement.',
+      tips: [
+        '🔍 Vous ouvrez peu de mails commerciaux',
+        '🚫 Vous vous désabonnez facilement',
+        '✅ Votre boîte mail est bien organisée'
+      ]
+    },
+    {
+      min: 7, max: 10,
+      emoji: '⚖️',
+      title: 'L\'Équilibré',
+      badge: '🎯 Profil Modéré',
+      badgeColor: '#fff3e0',
+      badgeText: '#e65100',
+      circleColor: 'linear-gradient(135deg, #f7971e, #ffd200)',
+      desc: 'Vous avez un rapport équilibré avec la prospection. Vous ouvrez certains emails, parfois intéressé par les offres, mais restez sélectif.',
+      tips: [
+        '📧 Vous filtrez intelligemment vos mails',
+        '🛒 Vous avez déjà succombé à une bonne offre',
+        '⚖️ Vous pesez le pour et le contre'
+      ]
+    },
+    {
+      min: 11, max: 15,
+      emoji: '🚀',
+      title: 'L\'Enthousiaste',
+      badge: '⭐ Profil Réceptif',
+      badgeColor: '#f3e5f5',
+      badgeText: '#6a1b9a',
+      circleColor: 'linear-gradient(135deg, #667eea, #764ba2)',
+      desc: 'Vous êtes très réceptif aux offres commerciales ! Vous aimez découvrir de nouveaux produits et n\'hésitez pas à acheter via email.',
+      tips: [
+        '🛍️ Vous êtes un acheteur actif en ligne',
+        '💡 Vous aimez les nouvelles offres',
+        '📬 Votre boîte mail est bien remplie !'
+      ]
+    }
+  ];
+
+  // Trouver le bon profil
+  const profile = profiles.find(p => score >= p.min && score <= p.max) || profiles[1];
+
+  // Appliquer
+  document.getElementById('resultEmoji').textContent = profile.emoji;
+  document.getElementById('scoreNumber').textContent = score;
+  document.getElementById('scoreCircle').style.background = profile.circleColor;
+  
+  const badge = document.getElementById('scoreBadge');
+  badge.textContent = profile.badge;
+  badge.style.background = profile.badgeColor;
+  badge.style.color = profile.badgeText;
+
+  document.getElementById('profileTitle').textContent = profile.title;
+  document.getElementById('profileDesc').textContent = profile.desc;
+
+  // Tips
+  const tipsList = document.getElementById('tipsList');
+  profile.tips.forEach(tip => {
+    const div = document.createElement('div');
+    div.className = 'tip-item';
+    div.textContent = tip;
+    tipsList.appendChild(div);
+  });
+
+  // Consentement
+  if (consent) {
+    document.getElementById('consentNotice').style.display = 'block';
+  }
+
+  // Animation du score
+  let current = 0;
+  const target = score;
+  const interval = setInterval(() => {
+    if (current >= target) { clearInterval(interval); return; }
+    current++;
+    document.getElementById('scoreNumber').textContent = current;
+  }, 80);
+</script>
+
+</body>
+</html>
