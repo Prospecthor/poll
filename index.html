@@ -371,20 +371,29 @@
     document.getElementById('loadingMsg').style.display = 'block';
 
     try {
-      await fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...answers, score })
-      });
+        const params = new URLSearchParams({
+        email: answers.email,
+        question1: answers.question1,
+        question2: answers.question2,
+        question3: answers.question3,
+        question4: answers.question4,
+        consentement: answers.consentement,
+        score: score
+        });
+        
+        await fetch(APPS_SCRIPT_URL + '?' + params.toString(), {
+        method: 'GET',
+        mode: 'no-cors'
+        });
     } catch (e) {
-      console.log('Envoi échoué', e);
+        console.log('Envoi échoué', e);
     }
 
     setTimeout(() => {
-      window.location.href = `resultat.html?score=${score}&consent=${answers.consentement}`;
+        window.location.href = 'resultat.html?score=' + score + '&consent=' + answers.consentement;
     }, 1000);
-  }
+    }
+
 
   updateProgress();
 </script>
