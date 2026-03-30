@@ -29,9 +29,7 @@
       gap: 10px;
       margin-bottom: 6px;
     }
-    .brand-logo {
-      font-size: 1.4rem;
-    }
+    .brand-logo { font-size: 1.4rem; }
     .brand-name {
       font-size: 1rem;
       font-weight: 700;
@@ -112,8 +110,6 @@
     }
     .option.selected .option-icon { background: #667eea; border-color: #667eea; }
     .option.selected .option-icon::after { content: '✓'; color: white; font-size: 12px; font-weight: bold; }
-
-    /* Email step */
     .email-intro {
       background: linear-gradient(135deg, #f0eeff, #e8f4fd);
       border-radius: 12px;
@@ -135,8 +131,6 @@
       margin-bottom: 4px;
     }
     input[type="email"]:focus { border-color: #667eea; }
-
-    /* Consent */
     .consent-box {
       background: #f9f9f9;
       border: 2px solid #eee;
@@ -160,7 +154,6 @@
     }
     .consent-text { font-size: 0.87rem; color: #555; line-height: 1.5; }
     .consent-text strong { color: #333; }
-
     .btn {
       margin-top: 22px;
       width: 100%;
@@ -190,7 +183,6 @@
       transition: all 0.2s;
     }
     .btn-back:hover { border-color: #667eea; color: #667eea; }
-
     .teaser {
       margin-top: 18px;
       text-align: center;
@@ -217,7 +209,6 @@
     <span class="progress-label" id="progressLabel">0 / 6</span>
   </div>
 
-  <!-- Q1 : Volume d'emails -->
   <div class="question active" id="q0">
     <div class="question-num">Question 1 / 6</div>
     <h2>Combien d'emails recevez-vous par jour en moyenne ?</h2>
@@ -239,7 +230,6 @@
     <p class="teaser">Résultat personnalisé à la fin — <strong>moins d'une minute</strong></p>
   </div>
 
-  <!-- Q2 : Part de prospection -->
   <div class="question" id="q1">
     <div class="question-num">Question 2 / 6</div>
     <h2>Quelle proportion estimez-vous être des emails de prospection / démarchage ?</h2>
@@ -261,7 +251,6 @@
     <button class="btn-back" onclick="prevQuestion(0)">← Retour</button>
   </div>
 
-  <!-- Q3 : Temps de tri -->
   <div class="question" id="q2">
     <div class="question-num">Question 3 / 6</div>
     <h2>Combien de temps passez-vous à trier / supprimer ces emails chaque jour ?</h2>
@@ -283,7 +272,6 @@
     <button class="btn-back" onclick="prevQuestion(1)">← Retour</button>
   </div>
 
-  <!-- Q4 : Emails manqués -->
   <div class="question" id="q3">
     <div class="question-num">Question 4 / 6</div>
     <h2>Vous est-il déjà arrivé de rater un email important noyé dans les sollicitations ?</h2>
@@ -305,7 +293,6 @@
     <button class="btn-back" onclick="prevQuestion(2)">← Retour</button>
   </div>
 
-  <!-- Q5 : Interruptions -->
   <div class="question" id="q4">
     <div class="question-num">Question 5 / 6</div>
     <h2>Ces emails vous interrompent-ils pendant vos plages de travail concentré ?</h2>
@@ -327,7 +314,6 @@
     <button class="btn-back" onclick="prevQuestion(3)">← Retour</button>
   </div>
 
-  <!-- Q6 : Poste -->
   <div class="question" id="q5">
     <div class="question-num">Question 6 / 6</div>
     <h2>Quel est votre rôle dans votre entreprise ?</h2>
@@ -349,7 +335,6 @@
     <button class="btn-back" onclick="prevQuestion(4)">← Retour</button>
   </div>
 
-  <!-- Étape finale : email + consentement -->
   <div class="question" id="q6">
     <div class="question-num">Dernière étape</div>
     <h2>Recevez votre analyse complète par email 📩</h2>
@@ -379,7 +364,7 @@
   };
   const scores = { q1: 0, q2: 0, q3: 0, q4: 0, q5: 0, q6: 0 };
   let currentStep = 0;
-  const totalSteps = 7; // q0 à q6
+  const totalSteps = 7;
 
   function updateProgress() {
     const pct = (currentStep / (totalSteps - 1)) * 100;
@@ -397,13 +382,10 @@
   }
 
   function selectOption(el, key, value, score) {
-    // Désélectionner toutes les options du même groupe
     el.parentElement.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
     el.classList.add('selected');
     answers[key] = value;
     scores[key] = score;
-
-    // Activer le bouton suivant de la question courante
     const btnId = 'btn' + el.closest('.question').id;
     const btn = document.getElementById(btnId);
     if (btn) btn.disabled = false;
@@ -423,11 +405,9 @@
 
     const totalScore = scores.q1 + scores.q2 + scores.q3 + scores.q4 + scores.q5;
 
-    // Calcul du temps perdu (en minutes/semaine) basé sur les scores
-    // score q3 (temps de tri/jour) × 5 jours + bonus interruptions (q5)
-    const triMinDay = [0, 3, 10, 22, 40][scores.q3];   // min/jour de tri
-    const interruptMin = [0, 0, 10, 20, 35][scores.q5]; // min/semaine perdues en interruptions
-    const missedMin = [0, 0, 15, 30, 60][scores.q4];    // min/semaine à cause d'emails ratés
+    const triMinDay = [0, 3, 10, 22, 40][scores.q3];
+    const interruptMin = [0, 0, 10, 20, 35][scores.q5];
+    const missedMin = [0, 0, 15, 30, 60][scores.q4];
     const totalMinWeek = (triMinDay * 5) + interruptMin + missedMin;
     const totalHoursWeek = (totalMinWeek / 60).toFixed(2);
 
