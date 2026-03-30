@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Votre résultat</title>
+  <title>Votre analyse — Prospecthor</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -16,77 +15,109 @@
       justify-content: center;
       padding: 20px;
     }
-
     .card {
       background: white;
       border-radius: 16px;
-      padding: 50px 40px;
-      max-width: 550px;
+      padding: 44px 38px;
+      max-width: 580px;
       width: 100%;
-      text-align: center;
       box-shadow: 0 20px 60px rgba(0,0,0,0.2);
     }
-
-    .emoji { font-size: 4rem; margin-bottom: 20px; }
-
-    .score-circle {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      margin: 20px auto 30px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: white;
-      position: relative;
-    }
-
-    .score-label {
-      font-size: 0.75rem;
-      font-weight: 500;
-      opacity: 0.9;
-    }
-
-    .profile-title {
-      font-size: 1.6rem;
+    .brand {
+      text-align: center;
+      font-size: 0.8rem;
       font-weight: 700;
-      color: #333;
-      margin-bottom: 12px;
+      color: #667eea;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
     }
-
-    .profile-desc {
-      color: #666;
+    .result-hero {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 14px;
+      padding: 30px 24px;
+      text-align: center;
+      color: white;
+      margin-bottom: 28px;
+    }
+    .result-hero .big-time {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .result-hero .big-label {
       font-size: 1rem;
-      line-height: 1.6;
-      margin-bottom: 25px;
+      opacity: 0.9;
+      margin-bottom: 16px;
     }
-
-    .badge {
-      display: inline-block;
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 0.85rem;
+    .result-hero .separator {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.3);
+      margin: 16px 0;
+    }
+    .result-hero .days-lost {
+      font-size: 1.05rem;
       font-weight: 600;
-      margin-bottom: 30px;
+      opacity: 0.95;
     }
-
-    .tips {
-      background: #f9f9f9;
+    .result-hero .recovery {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      background: rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 10px 14px;
+      line-height: 1.5;
+    }
+    .result-hero .recovery strong { font-size: 1.1rem; }
+    .stats-row {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .stat-box {
+      flex: 1;
+      border: 2px solid #eee;
       border-radius: 12px;
-      padding: 20px;
-      text-align: left;
-      margin-bottom: 25px;
+      padding: 16px 12px;
+      text-align: center;
     }
-
-    .tips h3 {
+    .stat-box .stat-val {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #667eea;
+    }
+    .stat-box .stat-desc {
+      font-size: 0.78rem;
+      color: #888;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+    .profile-block {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: #f9f7ff;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 22px;
+      border-left: 4px solid #667eea;
+    }
+    .profile-emoji { font-size: 2.2rem; flex-shrink: 0; }
+    .profile-text h3 { color: #333; font-size: 1.05rem; margin-bottom: 4px; }
+    .profile-text p { color: #666; font-size: 0.88rem; line-height: 1.5; }
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 700;
       color: #444;
       margin-bottom: 12px;
-      font-size: 1rem;
     }
-
+    .tips {
+      background: #fafafa;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 22px;
+    }
     .tip-item {
       display: flex;
       align-items: flex-start;
@@ -94,56 +125,122 @@
       margin-bottom: 10px;
       font-size: 0.9rem;
       color: #555;
+      line-height: 1.4;
     }
-
-    .consent-notice {
-      background: #fff3cd;
-      border: 1px solid #ffc107;
-      border-radius: 10px;
-      padding: 14px;
-      font-size: 0.85rem;
-      color: #856404;
+    .tip-item:last-child { margin-bottom: 0; }
+    .cta-block {
+      background: linear-gradient(135deg, #f0eeff, #e8f4fd);
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
       margin-bottom: 20px;
     }
-
-    .btn-retry {
-      padding: 14px 30px;
+    .cta-block h3 {
+      color: #333;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+    .cta-block p {
+      color: #666;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+    .btn-cta {
+      display: inline-block;
+      padding: 15px 32px;
       background: linear-gradient(135deg, #667eea, #764ba2);
       color: white;
       border: none;
       border-radius: 10px;
       font-size: 1rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       text-decoration: none;
-      display: inline-block;
+      transition: opacity 0.2s, transform 0.1s;
+      width: 100%;
+    }
+    .btn-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+    .consent-notice {
+      background: #e8f5e9;
+      border: 1px solid #a5d6a7;
+      border-radius: 10px;
+      padding: 13px 16px;
+      font-size: 0.85rem;
+      color: #2e7d32;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+    .btn-retry {
+      display: block;
+      text-align: center;
+      padding: 12px;
+      background: transparent;
+      color: #aaa;
+      border: 2px solid #eee;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-retry:hover { border-color: #667eea; color: #667eea; }
+    @media (max-width: 480px) {
+      .card { padding: 28px 20px; }
+      .result-hero .big-time { font-size: 2.4rem; }
+      .stats-row { flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
 <div class="card">
-  <div class="emoji" id="resultEmoji">🎯</div>
-  <h1 style="color:#444; margin-bottom:8px;">Votre profil</h1>
-  <p style="color:#aaa; font-size:0.9rem; margin-bottom:10px;">Basé sur vos réponses</p>
+  <div class="brand">📨 Prospecthor</div>
 
-  <div class="score-circle" id="scoreCircle">
-    <span id="scoreNumber">0</span>
-    <span class="score-label">/ 15 pts</span>
+  <div class="result-hero">
+    <div class="big-time" id="hoursDisplay">—</div>
+    <div class="big-label">heures perdues par semaine sur des emails non pertinents</div>
+    <hr class="separator">
+    <div class="days-lost" id="daysLost">Soit — jours de travail gaspillés par an</div>
+    <div class="recovery" id="recoveryMsg"></div>
   </div>
 
-  <div class="badge" id="scoreBadge">—</div>
-  <h2 class="profile-title" id="profileTitle">Analyse en cours...</h2>
-  <p class="profile-desc" id="profileDesc"></p>
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-val" id="statWeek">—</div>
+      <div class="stat-desc">min perdues<br>par semaine</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val" id="statYear">—</div>
+      <div class="stat-desc">heures<br>par an</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val">80%</div>
+      <div class="stat-desc">récupérables<br>avec Prospecthor</div>
+    </div>
+  </div>
 
-  <div class="tips" id="tipsBox">
-    <h3>💡 Ce que cela signifie :</h3>
+  <div class="profile-block">
+    <div class="profile-emoji" id="profileEmoji">🎯</div>
+    <div class="profile-text">
+      <h3 id="profileTitle">Analyse en cours…</h3>
+      <p id="profileDesc"></p>
+    </div>
+  </div>
+
+  <div class="tips">
+    <div class="section-title">🔍 Ce que révèle votre profil :</div>
     <div id="tipsList"></div>
   </div>
 
   <div class="consent-notice" id="consentNotice" style="display:none">
-    ✅ Merci ! Vous avez accepté de recevoir nos communications.
-    Nous veillerons à vous envoyer du contenu pertinent uniquement.
+    ✅ Votre analyse complète est en route dans votre boîte mail.
+  </div>
+
+  <div class="cta-block">
+    <h3>🚀 Reprenez le contrôle de votre boîte mail</h3>
+    <p>Prospecthor filtre automatiquement les emails de prospection et vous restitue du temps de travail concentré.</p>
+    <a href="#" class="btn-cta">Découvrir Prospecthor gratuitement →</a>
   </div>
 
   <a href="index.html" class="btn-retry">🔄 Refaire le sondage</a>
@@ -151,68 +248,79 @@
 
 <script>
   const params = new URLSearchParams(window.location.search);
+  const hoursRaw = parseFloat(params.get('hours')) || 0;
   const score = parseInt(params.get('score')) || 0;
+  const role = params.get('role') || '';
   const consent = params.get('consent') === 'true';
+
+  const totalMinWeek = Math.round(hoursRaw * 60);
+  const hoursWhole = Math.floor(hoursRaw);
+  const minutesRest = Math.round((hoursRaw - hoursWhole) * 60);
+  const hoursPerYear = (hoursRaw * 52).toFixed(0);
+  const daysPerYear = (hoursRaw * 52 / 7).toFixed(1);
+  const recovered = (hoursRaw * 0.8).toFixed(1);
+
+  const displayEl = document.getElementById('hoursDisplay');
+
+  document.getElementById('daysLost').textContent =
+    'Soit ' + daysPerYear + ' jours de travail gaspillés par an';
+  document.getElementById('recoveryMsg').innerHTML =
+    'Prospecthor pourrait vous en restituer jusqu\'à <strong>' + recovered + 'h/semaine</strong>';
+  document.getElementById('statWeek').textContent = totalMinWeek + ' min';
+  document.getElementById('statYear').textContent = hoursPerYear + 'h';
+
+  let current = 0;
+  const target = hoursRaw;
+  const steps = 40;
+  const increment = target / steps;
+  const interval = setInterval(() => {
+    current += increment;
+    if (current >= target) { current = target; clearInterval(interval); }
+    const h = Math.floor(current);
+    const m = Math.round((current - h) * 60);
+    displayEl.textContent = h + 'h' + m.toString().padStart(2, '0');
+  }, 50);
 
   const profiles = [
     {
-      min: 0, max: 6,
-      emoji: '🛡️',
-      title: 'Le Protégé',
-      badge: '🔒 Profil Prudent',
-      badgeColor: '#e8f5e9',
-      badgeText: '#2e7d32',
-      circleColor: 'linear-gradient(135deg, #56ab2f, #a8e063)',
-      desc: 'Vous êtes très peu exposé à la prospection commerciale et vous y répondez rarement. Vous êtes sélectif et protégez votre boîte mail efficacement.',
+      min: 5, max: 8,
+      emoji: '😌',
+      title: 'Boîte mail plutôt maîtrisée',
+      desc: 'Vous gérez encore bien votre flux d\'emails, mais quelques ajustements pourraient vous faire gagner un temps précieux chaque semaine.',
       tips: [
-        '🔍 Vous ouvrez peu de mails commerciaux',
-        '🚫 Vous vous désabonnez facilement',
-        '✅ Votre boîte mail est bien organisée'
+        '✅ Vous triez efficacement vos emails au quotidien',
+        '🔔 Les interruptions restent limitées dans votre journée',
+        '💡 Un filtrage intelligent pourrait tout de même vous épargner plusieurs heures par mois'
       ]
     },
     {
-      min: 7, max: 10,
-      emoji: '⚖️',
-      title: 'L\'Équilibré',
-      badge: '🎯 Profil Modéré',
-      badgeColor: '#fff3e0',
-      badgeText: '#e65100',
-      circleColor: 'linear-gradient(135deg, #f7971e, #ffd200)',
-      desc: 'Vous avez un rapport équilibré avec la prospection. Vous ouvrez certains emails, parfois intéressé par les offres, mais restez sélectif.',
+      min: 9, max: 13,
+      emoji: '😤',
+      title: 'Surcharge email modérée',
+      desc: 'Les emails de prospection commencent à peser sur votre organisation. Vous perdez un temps non négligeable chaque semaine — et ce n\'est que le début.',
       tips: [
-        '📧 Vous filtrez intelligemment vos mails',
-        '🛒 Vous avez déjà succombé à une bonne offre',
-        '⚖️ Vous pesez le pour et le contre'
+        '⚠️ Vous avez déjà raté des emails importants noyés dans les sollicitations',
+        '🔔 Les notifications perturbent régulièrement votre concentration',
+        '📈 Sans action, ce temps perdu s\'accumule : ' + hoursPerYear + 'h par an'
       ]
     },
     {
-      min: 11, max: 15,
-      emoji: '🚀',
-      title: 'L\'Enthousiaste',
-      badge: '⭐ Profil Réceptif',
-      badgeColor: '#f3e5f5',
-      badgeText: '#6a1b9a',
-      circleColor: 'linear-gradient(135deg, #667eea, #764ba2)',
-      desc: 'Vous êtes très réceptif aux offres commerciales ! Vous aimez découvrir de nouveaux produits et n\'hésitez pas à acheter via email.',
+      min: 14, max: 20,
+      emoji: '🚨',
+      title: 'Boîte mail hors de contrôle',
+      desc: 'Votre boîte mail est un vrai gouffre à temps. Les emails de prospection envahissent votre quotidien, cassent votre rythme et vous font rater l\'essentiel.',
       tips: [
-        '🛍️ Vous êtes un acheteur actif en ligne',
-        '💡 Vous aimez les nouvelles offres',
-        '📬 Votre boîte mail est bien remplie !'
+        '🚨 Vous perdez plus de ' + hoursPerYear + ' heures par an sur des emails inutiles',
+        '💸 Ce temps vaut plusieurs semaines de travail productif',
+        '🎯 Prospecthor peut filtrer jusqu\'à 80% de ces interruptions automatiquement'
       ]
     }
   ];
 
-  const profile = profiles.find(p => score >= p.min && score <= p.max) || profiles[1];
+  const profile = profiles.find(p => score >= p.min && score <= p.max)
+    || (score < 9 ? profiles[0] : profiles[2]);
 
-  document.getElementById('resultEmoji').textContent = profile.emoji;
-  document.getElementById('scoreNumber').textContent = score;
-  document.getElementById('scoreCircle').style.background = profile.circleColor;
-  
-  const badge = document.getElementById('scoreBadge');
-  badge.textContent = profile.badge;
-  badge.style.background = profile.badgeColor;
-  badge.style.color = profile.badgeText;
-
+  document.getElementById('profileEmoji').textContent = profile.emoji;
   document.getElementById('profileTitle').textContent = profile.title;
   document.getElementById('profileDesc').textContent = profile.desc;
 
@@ -227,14 +335,6 @@
   if (consent) {
     document.getElementById('consentNotice').style.display = 'block';
   }
-
-  let current = 0;
-  const target = score;
-  const interval = setInterval(() => {
-    if (current >= target) { clearInterval(interval); return; }
-    current++;
-    document.getElementById('scoreNumber').textContent = current;
-  }, 80);
 </script>
 
 </body>
