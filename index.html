@@ -422,7 +422,8 @@
       question5: answers.q5,
       question6: answers.q6,
       consentement: answers.consentement,
-      score: totalScore
+      score: totalScore,
+      hours: totalHoursWeek
     });
 
     fetch(APPS_SCRIPT_URL + '?' + params.toString())
